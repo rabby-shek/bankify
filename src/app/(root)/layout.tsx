@@ -25,31 +25,31 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
         <nav className="space-y-2">
           <a
             href="#"
-            className="flex items-center gap-3 px-4 py-2 rounded hover:brand-bg-color"
+            className="flex items-center gap-3 px-4 py-2 rounded hover:bg-green-500"
           >
             <HiHome size={20} /> Home
           </a>
           <a
             href="#"
-            className="flex items-center gap-3 px-4 py-2 rounded hover:brand-bg-color"
+            className="flex items-center gap-3 px-4 py-2 rounded hover:bg-green-500"
           >
             <CiBank size={20} /> My Banks
           </a>
           <a
             href="#"
-            className="flex items-center gap-3 px-4 py-2 rounded hover:brand-bg-color"
+            className="flex items-center gap-3 px-4 py-2 rounded hover:bg-green-500"
           >
             <GrTransaction size={20} /> Transaction History
           </a>
           <a
             href="#"
-            className="flex items-center gap-3 px-4 py-2 rounded hover:brand-bg-color"
+            className="flex items-center gap-3 px-4 py-2 rounded hover:bg-green-500"
           >
             <FaMoneyBillAlt size={20} /> Payment Transfer
           </a>
           <a
             href="#"
-            className="flex items-center gap-3 px-4 py-2 rounded hover:brand-bg-color"
+            className="flex items-center gap-3 px-4 py-2 rounded hover:bg-green-500"
           >
             <MdAssignmentAdd size={20} /> Connect Bank
           </a>
