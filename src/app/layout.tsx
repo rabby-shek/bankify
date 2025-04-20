@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Bankify",
   description: "Your trusted banking system.",
+  icons: {
+    icon : '/icons/logo.svg'
+  }
 };
 
 export default function RootLayout({
