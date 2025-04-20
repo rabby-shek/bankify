@@ -12,12 +12,12 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
       <div
-        className={`fixed inset-y-0 left-0 z-30 w-64 transform bg-white border-r p-4 transition-transform duration-300 ease-in-out ${
+        className={`fixed inset-y-0 left-0 z-30 w-64 transform bg-white shadow  p-4 transition-transform duration-300 ease-in-out ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 md:static md:inset-0`}
       >
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold">Dashboard</h2>
+          <h2 className="text-2xl font-bold text-white bg-green-500 w-full p-2 rounded-2xl">Bankify</h2>
           <button className="md:hidden" onClick={() => setSidebarOpen(false)}>
             <FaTimes size={20} />
           </button>
