@@ -8,7 +8,7 @@ const SignIn = () => {
         <h1 className="text-3xl font-bold text-center text-green-500 mb-3">
        Bankify
         </h1>
-        <p className="mb-3">Welcome back! Please enter your details. </p>
+        <p className="mb-5 text-center">Welcome back! Please enter your details. </p>
         <form className="max-w-sm mx-auto">
           <div className="mb-5">
             <label htmlFor="email" className="input-box-label">
