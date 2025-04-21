@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 
 const SignIn = () => {
@@ -5,7 +6,7 @@ const SignIn = () => {
     <div className="flex items-center justify-center  h-screen bg-green-500">
       <div className="bg-white shadow rounded-xl w-full max-w-sm p-8">
         <h1 className="text-3xl font-bold text-center text-green-500 mb-3">
-          Bankify
+       Bankify
         </h1>
         <p className="mb-3">Welcome back! Please enter your details. </p>
         <form className="max-w-sm mx-auto">

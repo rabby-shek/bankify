@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "Bankify",
   description: "Your trusted banking system.",
   icons: {
-    icon : '/icons/logo.svg'
+    icon : '/favicon.ico'
   }
 };
 
