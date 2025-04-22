@@ -1,9 +1,40 @@
 @import "tailwindcss";
 
 
+
 .input-box {
     @apply shadow-xs bg-green-50 border border-gray-300 text-sm rounded-lg focus:outline-none focus:border-green-500 block w-full p-2.5;
 }
-.input-box-label{
+
+.input-box-label {
     @apply block mb-2 text-sm font-bold;
 }
+
+.input-class {
+    @apply text-[16px] leading-[24px] placeholder:text-[16px] placeholder:leading-[24px] rounded-lg border border-gray-300 text-gray-900 placeholder:text-gray-500;
+}
+
+
+  /* Auth Form */
+  .auth-form {
+    @apply flex min-h-screen w-full max-w-[420px] flex-col justify-center gap-5 py-10 md:gap-8;
+  }
+
+  .form-item {
+    @apply flex flex-col gap-1.5;
+  }
+
+  .form-label {
+    @apply text-[14px] leading-[20px] w-full max-w-[280px] font-medium text-gray-700;
+  }
+
+  .form-message {
+    @apply text-[12px] leading-[16px] text-red-500;
+  }
+  .form-btn {
+    @apply text-[16px] leading-[24px] rounded-lg border bg-black hover:bg-gray-800 font-semibold text-white cursor-pointer;
+  }
+
+
+
+ 

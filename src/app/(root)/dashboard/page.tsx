@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <section>
       <Greetings user="Shaek Saheb" />
-      <TotalBalanceBox />
+      <TotalBalanceBox  />
     </section>
   );
 };

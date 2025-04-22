@@ -1,10 +1,11 @@
 
-import Link from "next/link";
+import AuthForm from "@/components/AuthForm";
 
 const SignIn = () => {
   return (
     <div className="flex items-center justify-center  h-screen bg-green-500">
-      <div className="bg-white shadow rounded-xl w-full max-w-sm p-8">
+      <AuthForm type="Sign In" />
+      {/* <div className="bg-white shadow rounded-xl w-full max-w-sm p-8">
         <h1 className="text-3xl font-bold text-center text-green-500 mb-3">
        Bankify
         </h1>
@@ -40,7 +41,7 @@ const SignIn = () => {
             Sign up
           </Link>
         </p>
-      </div>
+      </div> */}
     </div>
   );
 };

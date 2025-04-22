@@ -5,7 +5,7 @@ const SignUp = () => {
     <div className="flex items-center justify-center h-full bg-green-500 py-4">
       <div className="bg-white shadow rounded-xl w-full max-w-lg p-8">
         <h1 className="text-3xl font-bold text-center text-green-500 mb-3">
-          Sign up
+        Bankify
         </h1>
         <p className="mb-5 text-center">Please enter your details.</p>
         <form className="space-y-4">
@@ -60,7 +60,7 @@ const SignUp = () => {
         </form>
         <p className="mt-3 text-center">
           Don't have an account?
-          <Link href="/sign-in" className="font-bold mx-1 hover:text-green-500">
+          <Link href="/" className="font-bold mx-1 hover:text-green-500">
             Login
           </Link>
         </p>
