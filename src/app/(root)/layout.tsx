@@ -5,9 +5,13 @@ import { HiHome } from "react-icons/hi";
 import { CiBank } from "react-icons/ci";
 import { GrTransaction } from "react-icons/gr";
 import { MdAssignmentAdd } from "react-icons/md";
+import { Button } from "@/components/ui/button";
+import { logout } from "@/lib/actions/user.action";
+import { useRouter } from "next/navigation";
+import LogoutButtom from "@/components/LogoutButtom";
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
+ 
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
@@ -22,7 +26,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
             <FaTimes size={20} />
           </button>
         </div>
-        <nav className="space-y-2">
+        <nav className="space-y-2 relative">
           <a
             href="#"
             className="flex items-center gap-3 px-4 py-2 rounded hover:bg-green-500"
@@ -53,6 +57,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
           >
             <MdAssignmentAdd size={20} /> Connect Bank
           </a>
+         <LogoutButtom />
         </nav>
       </div>
 

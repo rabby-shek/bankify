@@ -34,6 +34,13 @@
   .form-btn {
     @apply text-[16px] leading-[24px] rounded-lg border bg-black hover:bg-gray-800 font-semibold text-white cursor-pointer;
   }
+  .form-link {
+    @apply text-[14px] leading-[20px] cursor-pointer font-bold text-green-500 ms-0.5;
+  }
+  .text-14{
+    @apply text-[14px] leading-[20px];
+  }
+
 
 
 
