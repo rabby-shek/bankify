@@ -44,13 +44,13 @@ const AuthForm = ({ type }: { type: string }) => {
         setUser(newUser);
       }
       if (type === "Sign In") {
-        console.log("logging in");
+        
         const response = await signIn({
           email: data.email,
           password: data.password,
         });
        
-        console.log(response);
+       
         if (response) router.push("/dashboard");
       }
     } catch (error) {
