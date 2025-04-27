@@ -4,20 +4,20 @@ import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 import { logout } from "@/lib/actions/user.action";
 
-const LogoutButtom = () => {
+const LogoutButton = () => {
   const router = useRouter();
   const handleLogout = async () => {
     await logout();
-    router.push('sign-in');
+    router.push('/');
   };
   return (
     <Button
       onClick={handleLogout}
-      className="bg-black text-white cursor-pointer"
+      className="bg-black text-white cursor-pointer w-full"
     >
       Logout
     </Button>
   );
 };
 
-export default LogoutButtom;
+export default LogoutButton;
