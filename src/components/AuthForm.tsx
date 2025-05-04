@@ -11,6 +11,7 @@ import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {  signIn, signUp } from "@/lib/actions/user.action";
+import PlaidLink from "./PlaidLink";
 const AuthForm = ({ type }: { type: string }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -71,9 +72,9 @@ const AuthForm = ({ type }: { type: string }) => {
           ? "Welcome back! Please enter your details."
           : "Please enter your details."}
       </p>
-      {user ? (
-        <div>Link your account to get started</div>
-      ) : (
+      {/* {user ? ( */}
+        <div><PlaidLink user={user} variant='primary' /></div>
+      {/* ) : ( */}
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             {type === "Sign Up" && (
@@ -162,7 +163,7 @@ const AuthForm = ({ type }: { type: string }) => {
             </div>
           </form>
         </Form>
-      )}
+      {/* )} */}
       <footer className="flex justify-center gap-1 mt-4">
         <p className="text-14 font-semibold">
           {type === "Sign In"
