@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Bankify – A Banking Transaction Solution
 
-## Getting Started
+_A modern banking transaction platform using Next.js, MySQL, Plaid, and Dwolla._
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✅ Project Plan
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 1. 🔐 Authentication System
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Users can **sign up** and **log in** securely.
+- After logging in:
+  - **First-time users** must connect a bank account.
+  - **Returning users** can:
+    - View previously connected bank accounts.
+    - Add new bank accounts.
+    - Initiate and view transactions.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+### 2. 🏦 Plaid Integration
 
-To learn more about Next.js, take a look at the following resources:
+**Purpose**: Securely connect banks and fetch user banking data.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### 🔧 Implementation Steps:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Use **Plaid Link** in the frontend to connect the user's bank account.
+2. On success, exchange the `public_token` with a **Plaid `access_token`**.
+3. Store the `access_token` securely in the backend database (MySQL).
+4. Use Plaid APIs to:
+   - Fetch **account details** (name, type, balance).
+   - Fetch **real-time transaction history**.
+   - Fetch **identity info** (optional for verification).
+   - Fetch **income**, **assets**, and **balances**.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 3. 💸 Dwolla Integration
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Purpose**: Perform secure ACH money transfers between bank accounts.
+
+#### 🔧 Implementation Steps:
+
+1. Create a **Dwolla Customer** for the user using their KYC details.
+2. Use the bank account connected via Plaid to create a **Funding Source** in Dwolla.
+3. Allow user-to-user or user-to-other-account **bank transfers** via Dwolla API.
+4. Monitor the **status of transactions** (pending, processed, failed).
+5. Store transaction records in MySQL for reference.
+
+---
+
+## 🎯 Features Summary
+
+| Feature                              | Provider    |
+| ------------------------------------ | ----------- |
+| User Authentication                  | Custom/Auth |
+| Bank Connection                      | Plaid       |
+| Real-time Bank Balance               | Plaid       |
+| Transaction History (External Banks) | Plaid       |
+| ACH Bank Transfers                   | Dwolla      |
+| Transaction Status & Logs            | Dwolla      |
+| Multiple Bank Accounts per User      | Plaid + DB  |
+| Transfer Between Bank Accounts       | Dwolla      |
+| Secure Data Storage                  | MySQL + Env |
+
+---
+
+## 🧠 Tech Stack
+
+- **Frontend**: Next.js (React)
+- **Backend**: Node.js API Routes (Next.js)
+- **Database**: MySQL
+- **Bank Data API**: Plaid
+- **Money Transfer API**: Dwolla
+- **Authentication**: NextAuth.js / Custom JWT
