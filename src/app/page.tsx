@@ -35,13 +35,14 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center">
-      <div className="bg-white w-full max-w-sm p-6 rounded-2xl shadow-2xl">
-        <h1 className="text-2xl font-bold text-center text-black mb-6">
+      <div className="bg-black w-full max-w-sm p-6 rounded-2xl shadow-2xl border-1">
+        <h1 className="text-2xl font-bold text-center text-white mb-6">
           Bankify
         </h1>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           <div>
             <Input
+              className="text-white"
               type="email"
               placeholder="Enter your email"
               {...register("email")}
@@ -54,6 +55,7 @@ export default function LoginPage() {
           </div>
           <div>
             <Input
+              className="text-white"
               type="password"
               placeholder="Enter your password"
               {...register("password")}
@@ -68,7 +70,7 @@ export default function LoginPage() {
             Submit
           </Button>
         </form>
-        <div className="text-center mt-4">
+        <div className="text-center text-white mt-4">
           Don't have and account?
           <Link href="/register" className="hover:underline font-medium">
             Register

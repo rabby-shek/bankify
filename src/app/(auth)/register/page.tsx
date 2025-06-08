@@ -41,14 +41,15 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center">
-      <div className="bg-white w-full max-w-lg p-6 rounded-2xl shadow-2xl">
-        <h1 className="text-2xl font-bold text-center text-black mb-6">
+      <div className="bg-black w-full max-w-lg p-6 rounded-2xl shadow-2xl border-1">
+        <h1 className="text-2xl font-bold text-center text-white mb-6">
           Bankify
         </h1>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-5 gap-x-2">
             <div>
               <Input
+                className="text-white"
                 type="text"
                 placeholder="First Name"
                 {...register("first_name")}
@@ -61,6 +62,7 @@ export default function RegisterPage() {
             </div>
             <div>
               <Input
+                className="text-white"
                 type="text"
                 placeholder="Last Name"
                 {...register("last_name")}
@@ -74,6 +76,7 @@ export default function RegisterPage() {
           </div>
           <div>
             <Input
+              className="text-white"
               type="email"
               placeholder="Enter your email"
               {...register("email")}
@@ -86,6 +89,7 @@ export default function RegisterPage() {
           </div>
           <div>
             <Input
+              className="text-white"
               type="text"
               placeholder="Enter your address"
               {...register("address")}
@@ -99,6 +103,7 @@ export default function RegisterPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-5 gap-x-2">
             <div>
               <Input
+                className="text-white"
                 type="text"
                 placeholder="State example: NY"
                 {...register("state")}
@@ -111,6 +116,7 @@ export default function RegisterPage() {
             </div>
             <div>
               <Input
+                className="text-white"
                 type="text"
                 placeholder="Postal Code"
                 {...register("postal_code")}
@@ -125,6 +131,7 @@ export default function RegisterPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-5 gap-x-2">
             <div>
               <Input
+                className="text-white"
                 type="text"
                 placeholder="Date of Birth"
                 {...register("date_of_birth")}
@@ -137,6 +144,7 @@ export default function RegisterPage() {
             </div>
             <div>
               <Input
+                className="text-white"
                 type="text"
                 placeholder="SSN Exm: 1224"
                 {...register("ssn")}
@@ -150,6 +158,7 @@ export default function RegisterPage() {
           </div>
           <div>
             <Input
+              className="text-white"
               type="password"
               placeholder="Enter your password"
               {...register("password")}
@@ -164,7 +173,7 @@ export default function RegisterPage() {
             Submit
           </Button>
         </form>
-        <div className="text-center mt-4">
+        <div className="text-center text-white mt-4">
           Already have and account?
           <Link href="/" className="hover:underline font-medium">
             Login
