@@ -8,7 +8,7 @@ const UserLayout = ({ children }: { children: ReactNode }) => {
       <AppSidebar />
       <div className="w-full">
         <Navbar /> {/* 👈 insert navbar */}
-        <main>{children}</main>
+        <main className="p-2">{children}</main>
       </div>
     </SidebarProvider>
   );

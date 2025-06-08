@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SidebarTrigger } from "./ui/sidebar";
 export default function Navbar() {
   return (
@@ -6,9 +7,12 @@ export default function Navbar() {
         <SidebarTrigger className="cursor-pointer text-white" />
       </div>
       <div className="space-x-4">
-        <button className="text-white cursor-pointer hover:underline">
+        <Link
+          href="/profile"
+          className="text-white cursor-pointer hover:underline"
+        >
           Profile
-        </button>
+        </Link>
         <button className="text-white cursor-pointer hover:underline">
           Logout
         </button>
