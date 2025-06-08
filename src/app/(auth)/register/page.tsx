@@ -9,10 +9,10 @@ import Link from "next/link";
 
 const registerSchema = z.object({
   first_name: z.string().min(3, "First name must be at least 3 character."),
-  last_name: z.string(),
+  last_name: z.string().min(1, "First name must be at least 3 character."),
   email: z.string().email("Invalid email"),
-  address: z.string(),
-  state: z.string(),
+  address: z.string().min(1, "Address is required."),
+  state: z.string().min(1, "State is required."),
   postal_code: z.string(),
   date_of_birth: z.string(),
   ssn: z.string(),
