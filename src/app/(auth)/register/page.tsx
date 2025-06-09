@@ -1,25 +1,13 @@
 "use client";
-
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-
-const registerSchema = z.object({
-  first_name: z.string().min(3, "First name must be at least 3 character."),
-  last_name: z.string().min(1, "First name must be at least 3 character."),
-  email: z.string().email("Invalid email"),
-  address: z.string().min(1, "Address is required."),
-  state: z.string().min(1, "State is required."),
-  postal_code: z.string(),
-  date_of_birth: z.string(),
-  ssn: z.string(),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-});
-
-type LoginForm = z.infer<typeof registerSchema>;
+import { signup } from "@/lib/auth.actions";
+import { registerSchema } from "@/schemas/authSchemas";
+import { RegisterFormDataTypes } from "@/lib/types";
 
 export default function RegisterPage() {
   const {
@@ -27,7 +15,7 @@ export default function RegisterPage() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<LoginForm>({
+  } = useForm<RegisterFormDataTypes>({
     resolver: zodResolver(registerSchema),
   });
 
@@ -35,8 +23,8 @@ export default function RegisterPage() {
   const password = watch("password");
   const isDisabled = !email || password.length < 6;
 
-  const onSubmit = (data: LoginForm) => {
-    console.log("Login data:", data);
+  const onSubmit = async (data: RegisterFormDataTypes) => {
+    signup(data);
   };
 
   return (

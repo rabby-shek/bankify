@@ -1,0 +1,162 @@
+// Folder structure:
+// /lib/db.js
+// /lib/hash.js
+// /lib/mailer.js
+// /lib/validation.js
+// /app/api/auth/register/route.js
+// /app/api/auth/login/route.js
+// /app/api/auth/verify-otp/route.js
+
+// --- /lib/db.js ---
+import mysql from 'mysql2/promise';
+
+export const db = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+});
+
+// --- /lib/hash.js ---
+import bcrypt from 'bcryptjs';
+
+export async function hashPassword(password) {
+  return await bcrypt.hash(password, 10);
+}
+
+export async function verifyPassword(password, hashed) {
+  return await bcrypt.compare(password, hashed);
+}
+
+// --- /lib/mailer.js ---
+import nodemailer from 'nodemailer';
+
+export async function sendOTP(email, otp) {
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: false,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+  });
+
+  await transporter.sendMail({
+    from: `MyBank <${process.env.SMTP_USER}>`,
+    to: email,
+    subject: 'Your OTP Code',
+    text: `Your OTP is: ${otp}`,
+  });
+}
+
+// --- /lib/validation.js ---
+import { z } from 'zod';
+
+export const registerSchema = z.object({
+  first_name: z.string().min(3, "First name must be at least 3 character."),
+  last_name: z.string(),
+  email: z.string().email("Invalid email"),
+  address: z.string(),
+  state: z.string(),
+  postal_code: z.string(),
+  date_of_birth: z.string(),
+  ssn: z.string(),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
+// --- /app/api/auth/register/route.js ---
+import { db } from '@/lib/db';
+import { hashPassword } from '@/lib/hash';
+import { sendOTP } from '@/lib/mailer';
+import { registerSchema } from '@/lib/validation';
+
+export async function POST(request) {
+  try {
+    const body = await request.json();
+    const data = registerSchema.parse(body);
+
+    const [userCheck] = await db.query('SELECT id FROM users WHERE email = ?', [data.email]);
+    if (userCheck.length > 0) return Response.json({ error: 'Email already exists' }, { status: 400 });
+
+    const hashedPassword = await hashPassword(data.password);
+
+    const [result] = await db.query(
+      `INSERT INTO users (first_name, last_name, email, password, address, state, postal_code, date_of_birth, ssn)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        data.first_name,
+        data.last_name,
+        data.email,
+        hashedPassword,
+        data.address,
+        data.state,
+        data.postal_code,
+        data.date_of_birth,
+        data.ssn,
+      ]
+    );
+
+    const userId = result.insertId;
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+    await db.query('INSERT INTO otp_tokens (user_id, otp_code) VALUES (?, ?)', [userId, otp]);
+    await sendOTP(data.email, otp);
+
+    return Response.json({ message: 'User registered. OTP sent to email.' });
+  } catch (err) {
+    return Response.json({ error: err.message }, { status: 400 });
+  }
+}
+
+// --- /app/api/auth/login/route.js ---
+import { db } from '@/lib/db';
+import { verifyPassword } from '@/lib/hash';
+import { sendOTP } from '@/lib/mailer';
+
+export async function POST(request) {
+  const { email, password } = await request.json();
+  const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
+  if (rows.length === 0) return Response.json({ error: 'Invalid credentials' }, { status: 401 });
+
+  const user = rows[0];
+  const valid = await verifyPassword(password, user.password);
+  if (!valid) return Response.json({ error: 'Invalid credentials' }, { status: 401 });
+
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  await db.query('INSERT INTO otp_tokens (user_id, otp_code) VALUES (?, ?)', [user.id, otp]);
+  await sendOTP(email, otp);
+
+  return Response.json({ message: 'OTP sent to email' });
+}
+
+// --- /app/api/auth/verify-otp/route.js ---
+import { db } from '@/lib/db';
+
+export async function POST(request) {
+  const { email, otp_code } = await request.json();
+  const [userResult] = await db.query('SELECT id FROM users WHERE email = ?', [email]);
+  if (userResult.length === 0) return Response.json({ error: 'User not found' }, { status: 400 });
+
+  const userId = userResult[0].id;
+  const [otpResult] = await db.query(
+    'SELECT * FROM otp_tokens WHERE user_id = ? AND otp_code = ? ORDER BY created_at DESC LIMIT 1',
+    [userId, otp_code]
+  );
+
+  if (otpResult.length === 0) return Response.json({ error: 'Invalid OTP' }, { status: 400 });
+
+  await db.query('DELETE FROM otp_tokens WHERE user_id = ?', [userId]);
+  await db.query('UPDATE users SET is_email_verified = 1 WHERE id = ?', [userId]);
+
+  return Response.json({ message: 'Login successful' });
+}
+
+// --- SQL: otp_tokens table ---
+// CREATE TABLE otp_tokens (
+//   id INT AUTO_INCREMENT PRIMARY KEY,
+//   user_id INT NOT NULL,
+//   otp_code VARCHAR(6) NOT NULL,
+//   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+//   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+// );
